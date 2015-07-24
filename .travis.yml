@@ -5,6 +5,7 @@ compilers:
   - clang
 
 before-install:
+  - uname -a
   - sudo apt-get update
 
 install:
