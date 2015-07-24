@@ -5,12 +5,12 @@ compilers:
   - clang
 
 before-install:
-  - apt-get update
+  - sudo apt-get update
 
 install:
-  - apt-get install build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
-  - apt-get install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools qtdeclarative5-dev qtmultimedia5-dev
-  - apt-get install qml-module-qtquick-controls qml-module-qtquick-dialogs tor
+  - sudo apt-get install build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
+  - sudo apt-get install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools qtdeclarative5-dev qtmultimedia5-dev
+  - sudo apt-get install qml-module-qtquick-controls qml-module-qtquick-dialogs tor
 
 script:
   - qmake
