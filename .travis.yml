@@ -21,5 +21,6 @@ install:
   - sudo apt-get install -qq tor
 
 script:
-  - qmake
+  - qtchooser -list-versions
+  - qmake -qt=qt5
   - make
