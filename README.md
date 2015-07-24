@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kolodziej/ricochet.svg?branch=travis-ci)](https://travis-ci.org/kolodziej/ricochet)
+
 ### Anonymous metadata-resistant instant messaging that just works
 Ricochet is an experiment with a different kind of instant messaging that **doesn't trust anyone** with your identity, your contact list, or your communications.
 
