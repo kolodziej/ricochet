@@ -10,8 +10,7 @@ before-install:
 install:
   - aptitude install build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
   - aptitude install qt5-qmake qt5-default qtbase5-dev qttools5-dev-tools qtdeclarative5-dev qtmultimedia5-dev
-  - aptitude install qml-module-qtquick-controls qml-module-qtquick-dialogs
-  - aptitude install tor
+  - aptitude install qml-module-qtquick-controls qml-module-qtquick-dialogs tor
 
 script:
   - qmake
