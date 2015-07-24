@@ -5,7 +5,7 @@ compilers:
   - clang
 
 before_install:
-  - sudo add-apt-repository --yes 'deb deb http://ftp.pl.debian.org/debian/ jessie main'
+  - sudo add-apt-repository --yes 'deb http://ftp.pl.debian.org/debian/ jessie main'
   - sudo apt-get update -qq
 
 install:
