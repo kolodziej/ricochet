@@ -1,0 +1,64 @@
+version: 1.0.0.{build}
+
+branches:
+  except:
+    - project/travis-ci
+
+environment:
+  ricochet_version: 1.1.1
+
+  matrix:
+  # MSVC x86
+  - name: win32
+    platform: amd64_x86
+    qt: 5.5\msvc2013
+    suffix: msvc2013 
+
+  # MSVC x64
+  - name: win64
+    platform: amd64
+    qt: 5.5\msvc2013_64
+    suffix: msvc2013
+
+  # MSVC x64 (Qt 5.4)
+  - name: win64
+    platform: amd64
+    qt: 5.4\msvc2013_64_opengl
+    suffix: msvc2013_5.4
+
+  # MinGW
+  - name: win32
+    platform: mingw
+    qt: 5.5\mingw492_32
+    suffix: mingw
+
+init:
+  - set PATH=C:\Qt\%qt%\bin;%PATH%
+  - set ORIGPATH=%PATH%
+  - if not %platform%==mingw call "C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" %platform%
+  - if not %platform%==mingw (set makefiles="NMake Makefiles") else (set makefiles="MinGW Makefiles")
+  - if %APPVEYOR_REPO_TAG%==true (set nogitinfo=ON) else (set nogitinfo=OFF)
+
+clone_folder: c:\dev\ricochet
+
+install:
+  - cd c:\dev
+  - ps: Start-FileDownload 'http://slproweb.com/download/Win32OpenSSL-1_0_2d.exe' 
+  - ps: Start-Process "Win32OpenSSL-1_0_2d.exe" -ArgumentList "/silent /verysilent /sp- /suppressmsgboxes" -Wait
+  - ps: Start-FileDownload 'https://github.com/google/protobuf/releases/download/v2.6.1/protoc-2.6.1-win32.zip'
+  - 7z x protoc-2.6.1-win32.zip > NUL
+  - ps: Start-FileDownload 'https://www.torproject.org/dist/torbrowser/5.0.1/tor-win32-0.2.6.10.zip'
+  - 7z x tor-win32-0.2.6.10.zip > NUL
+
+before_build:
+  - cd c:\dev
+  - md build-release
+  - md build-debug
+
+build_script:
+  - cd c:\dev\ricochet
+  - qmake ricochet.pro "CONFIG+=debug" "Debug:DESTDIR = C:\dev\build-debug" "OPENSSLDIR=C:\OpenSSL-Win32\bin" "PROTOBUFDIR=C:\dev\"
+  - make
+
+artifacts:
+  - path: '*.7z'
