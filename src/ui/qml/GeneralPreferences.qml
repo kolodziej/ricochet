@@ -25,7 +25,7 @@ ColumnLayout {
     }
 
     CheckBox {
-        text: qsTr("Hide window on triggering close button")
+        text: qsTr("Close button minimizes window to tray")
         checked: uiSettings.data.hideOnX || false
         onCheckedChanged: {
             uiSettings.write("hideOnX", checked)
