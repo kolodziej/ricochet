@@ -25,6 +25,14 @@ ColumnLayout {
     }
 
     CheckBox {
+        text: qsTr("Hide window on triggering close button")
+        checked: uiSettings.data.hideOnX || false
+        onCheckedChanged: {
+            uiSettings.write("hideOnX", checked)
+        }
+    }
+
+    CheckBox {
         text: qsTr("Play audio notifications")
         checked: uiSettings.data.playAudioNotification || false
         onCheckedChanged: {
