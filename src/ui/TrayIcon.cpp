@@ -39,7 +39,6 @@ TrayIcon::TrayIcon(QIcon std_icon, QIcon unread_icon) :
     connect(this, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(activated(QSystemTrayIcon::ActivationReason)));
     setIcon(m_std_icon);
 
-    // context menu
     m_context_menu = new QMenu();
     m_context_menu->addAction(tr("Preferences"), this, SLOT(openPreferences()));
     m_context_menu->addAction(tr("Add contact"), this, SLOT(addContact()));
