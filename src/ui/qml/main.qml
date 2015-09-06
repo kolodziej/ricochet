@@ -10,7 +10,7 @@ QtObject {
     id: root
 
     property MainWindow mainWindow: MainWindow {}
-    property int lastVisibility
+    property int lastVisibility: mainWindow.visibility
 
     function createDialog(component, properties, parent) {
         if (typeof(component) === "string")
@@ -97,7 +97,8 @@ QtObject {
         Connections {
             target: trayIcon
             onToggleWindow: {
-                if (mainWindow.visibility == Window.Hidden)
+                if (mainWindow.visibility == Window.Hidden ||
+                    mainWindow.visibility == Window.Minimized)
                 {
                     mainWindow.visibility = lastVisibility;
                 } else
