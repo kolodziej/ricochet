@@ -10,7 +10,7 @@ QtObject {
     id: root
 
     property MainWindow mainWindow: MainWindow {}
-    property int lastVisibility: mainWindow.visibility
+    property int lastVisibility: Window.Windowed
 
     function createDialog(component, properties, parent) {
         if (typeof(component) === "string")
