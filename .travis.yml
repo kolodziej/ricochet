@@ -26,5 +26,7 @@ install:
   - sudo apt-get install -qq tor
 
 script:
-  - qmake -qt=5
+  - /opt/qt54/bin/qt54-env.sh 
+  - /opt/qt54/bin/qmake -project
+  - /opt/qt54/bin/qmake ricochet.pro CONFIG+=$CONFIG
   - make
