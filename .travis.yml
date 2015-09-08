@@ -22,6 +22,7 @@ install:
       && make check
       && sudo make install
       && cd ..
+      && sudo ldconfig
       && export CXX="g++-4.8"
       && export CC="gcc-4.8"
       ;
