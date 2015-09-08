@@ -4,8 +4,12 @@ os:
   - linux
 
 env:
-  - CONFIG=Debug
-  - CONFIG=Release
+  global:
+    - secure: "osxUkwgL8k93S1rmJzwAjuZlqwYgsnYg3o0GWH6C4bOv9nwC5Z21sCm+CWOyl+UKKyPvQXieBVowq2eGF5hQInr5Jftp543uILiS78fxBzc8aXERDDSk0/mSl+uGTR8dZ38K1mVeeAgurky+ctUvYinD3UeP9+oDrnuPkVUC7SpKNbXp1pijVzmvkl/BCluHcgj8YwA+aEZWx99tDRClDas4/XAfCrYh48erOhe+B9AHNYjIkss2bP6w1dcyR1+8qKqipmhkoORlFsbnSqJ0hs7oftvgzE5CJvX3V+bAvVwGt4n4sn9COJNhnKDX2kQfzNbuyo+UeMr1zca9NAHCXje8ygHZp/obEzhE0GBzjXzQejEAahULq2xZB23TSRFmMpy0VBnH8k45XOsJgLvjc6z+uFT/JeW8dJo0Hi+NN98sjs6cujJvJ9QVaJcUaZgFu+Kx18xJDCTTx/uTdew+D6mrqFJ09XysYsK2ndO26EB/5n+9/gJ0AnCCqn/h+wM3f6PAAm0PUL+XrtIqwtUEKj9cq0AWbw2L9phhoUN+7zh1CcgHHg+oac0tWSrsBCDIUVGuPBXNidfmkwF66urqT7j++kIQUrkEp95em6yN7JvgITgvMBNcRhlH+0WQ84fxZ00uVdaBYfXsfh/um6/2kRrvi0AFr5m0bzeRT+WjfmA="
+    - secure: "zcANb0buMXunNMSB4Vk8fnWhco9Ce0JN+eHqVaLDWMLaNuSCSrHqhAsEHN8NFQIPGNvb5KLRkG9aqZfhP4LR6emLcYtD2ISj3t3m5yni7gjmRQWWDGYuJARFylH423FainhwkCdEsqtGeXbSvxpJmJ81E6sdsBE/P+3WsXnnfIbsdl/SJHv+7CH5Qa5LhRFJyiIT22thbg7ji82AaOQY3I25VERaJs+A8Akd0QgQAmi1VAloy+wlWfMxYuuc/ybk09EPVEwLLGqS/CxcuWGsQMo2PtUjldyS8H8MbT/Sg3R+B1Gv1rPvR3d95MHpuXj2cONX6mo1lDjzi0xW6dUZIKwYg9N+D5C3QNl7xCKinQY5ysX3fIOIGVZNlsC1WqP4naknnTocvJWHHS82OjTzJy9suNsn6OmE3Sjam4bCR8H8p8F/s+IX+VayGlH0mNwpDmQP9Y0AcUtwzdLrxdTgzFrKIzCt6n0f7Bs8zJ0Dc1M5TXM+w9xoErvlmmXXbnwsu7sct7xcCEbmWoyv1IYlJXhlvKkd0dsuSKRy5Twc5ISULzM+yNIrSqPAvWKk3I7Rss7d4HYwf9sLAoUcP4tuzspMkw73Jf9YPsaDFRamt+sf0fQhJP0g7wU5pV4UmWOKKMT7FEf54Ggm201qD5/tFbE4kfa5o0Fh7ascq6lIEQY="
+  matrix:
+    - CONFIG=Debug
+    - CONFIG=Release
 
 install:
   - sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
@@ -32,3 +36,7 @@ script:
   - /opt/qt54/bin/qt54-env.sh 
   - /opt/qt54/bin/qmake ricochet.pro CONFIG+=$CONFIG
   - make
+
+after_success:
+  - packaging/travis-ci/linux-static/linux.sh
+  - "curl --ftp-create-dirs -T `ls deploy/*.bz2` -u $FTPUSER:$FTPPASS ftp://k1.kolodziej.in/builds/kolodziej/$TRAVIS_BUILD_NUMBER/"
