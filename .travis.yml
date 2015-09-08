@@ -15,12 +15,35 @@ before_install:
   - wget http://ftp.us.debian.org/debian/pool/main/q/qtmultimedia-opensource-src/qtmultimedia5-dev_5.3.2-5_amd64.deb
 
 install:
+language: cpp
+
+os:
+  - linux
+  - osx
+
+env:
+  - CONFIG=Release
+  - CONFIG=Debug
+
+install:
   - sudo apt-get install -qq build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
-  - sudo dpkg -i qt5-default_5.3.2+dfsg-4+deb8u1_amd64.deb qttools5-dev-tools_5.3.2-3_amd64.deb qtdeclarative5-dev_5.3.2-4_amd64.deb qtmultimedia5-dev_5.3.2-5_amd64.deb || true
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
+      && sudo apt-add-repository -y ppa:beineri/opt-qt541
+      && sudo apt-get -qq update
+      && sudo apt-get -qq install g++-4.8 libc6-i386 qt54tools qt54svg qt54webkit
+      && export CXX="g++-4.8"
+      && export CC="gcc-4.8"
+      ;
+    else
+         brew update
+      && brew install qt5
+      && chmod -R 755 /usr/local/opt/qt5/*
+      ;
+    fi
   - sudo apt-get -f install
   - sudo apt-get install -qq tor
 
 script:
-  - qtchooser -list-versions
   - qmake -qt=qt5
   - make
