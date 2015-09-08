@@ -1,6 +1,8 @@
 ### Anonymous metadata-resistant instant messaging that just works
 Ricochet is an experiment with a different kind of instant messaging that **doesn't trust anyone** with your identity, your contact list, or your communications.
 
+[![Build Status](https://travis-ci.org/kolodziej/ricochet.svg?branch=travis-ci)](https://travis-ci.org/kolodziej/ricochet)
+
 * You can chat without exposing your identity (or IP address) to *anyone*
 * Nobody can discover who your contacts are or when you talk (*metadata-free!*)
 * There are no servers or operators to compromise that could access your information
