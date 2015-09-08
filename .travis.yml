@@ -1,22 +1,5 @@
 language: cpp
 
-compilers:
-  - gcc
-  - clang
-
-before_install:
-  - sudo add-apt-repository --yes 'deb http://ftp.pl.debian.org/debian/ jessie main'
-  - sudo apt-get update -qq
-
-before_install:
-  - wget http://ftp.us.debian.org/debian/pool/main/q/qtbase-opensource-src/qt5-default_5.3.2+dfsg-4+deb8u1_amd64.deb
-  - wget http://ftp.us.debian.org/debian/pool/main/q/qttools-opensource-src/qttools5-dev-tools_5.3.2-3_amd64.deb
-  - wget http://ftp.us.debian.org/debian/pool/main/q/qtdeclarative-opensource-src/qtdeclarative5-dev_5.3.2-4_amd64.deb
-  - wget http://ftp.us.debian.org/debian/pool/main/q/qtmultimedia-opensource-src/qtmultimedia5-dev_5.3.2-5_amd64.deb
-
-install:
-language: cpp
-
 os:
   - linux
   - osx
@@ -26,11 +9,11 @@ env:
   - CONFIG=Debug
 
 install:
-  - sudo apt-get install -qq build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
       sudo apt-add-repository -y ppa:ubuntu-toolchain-r/test
       && sudo apt-add-repository -y ppa:beineri/opt-qt541
       && sudo apt-get -qq update
+      && sudo apt-get install -qq build-essential libssl-dev pkg-config libprotobuf-dev protobuf-compiler
       && sudo apt-get -qq install g++-4.8 libc6-i386 qt54tools qt54svg qt54webkit
       && export CXX="g++-4.8"
       && export CC="gcc-4.8"
