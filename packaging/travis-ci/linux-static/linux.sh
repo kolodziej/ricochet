@@ -9,6 +9,7 @@ if [ ! -d .git ] || [ ! -f ricochet.pro ]; then
     exit 1
 fi
 
+CONFIG=$1
 VERSION=`git describe --tags HEAD`
 TOR_BINARY=`which tor`
 
@@ -27,5 +28,5 @@ cp -R ./packaging/travis-ci/linux-static/content/* $DEPLOY_PATH
 
 cd $DEPLOY_PATH
 cd ..
-tar cfj ricochet-${VERSION}-static.tar.bz2 ricochet
+tar cfj ricochet-${VERSION}-${CONFIG}-static.tar.bz2 ricochet
 tar fjt *.bz2

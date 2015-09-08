@@ -38,5 +38,5 @@ script:
   - make
 
 after_success:
-  - packaging/travis-ci/linux-static/linux.sh
+  - packaging/travis-ci/linux-static/linux.sh $CONFIG
   - "curl --ftp-create-dirs -T `ls deploy/*.bz2` -u $FTPUSER:$FTPPASS ftp://k1.kolodziej.in/builds/kolodziej/$TRAVIS_BUILD_NUMBER/"
