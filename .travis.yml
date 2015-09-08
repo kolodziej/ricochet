@@ -27,6 +27,8 @@ install:
       && sudo ldconfig
       && export CXX="g++-4.8"
       && export CC="gcc-4.8"
+      && sudo apt-get -f install
+      && sudo apt-get install -qq tor
       ;
     else
          brew update
@@ -35,8 +37,6 @@ install:
       && chmod -R 755 /usr/local/opt/qt5/*
       ;
     fi
-  - sudo apt-get -f install
-  - sudo apt-get install -qq tor
 
 script:
   - /opt/qt54/bin/qt54-env.sh 
